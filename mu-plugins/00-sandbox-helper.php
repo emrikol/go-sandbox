@@ -1,5 +1,6 @@
 <?php
 ini_set( 'xdebug.cli_color', 1 );
+error_reporting(E_ALL & ~E_NOTICE);
 
 if ( ! function_exists( 'vip_dump' ) ) {
 	function vip_dump( $var = null ) {
