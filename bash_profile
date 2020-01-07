@@ -1,10 +1,14 @@
 #!/bin/bash
-yes | cp -rf ~/dev-scripts/go-sandbox/mu-plugins/00-sandbox-helper.php ~/software-stacks/mu-plugins/1/
+
+# Include config if exists
+test -f ~/dev-scripts/.go-sandbox.conf && source ~/dev-scripts/.go-sandbox.conf
+
+yes | cp -rf ~/dev-scripts/go-sandbox/mu-plugins/* ~/software-stacks/mu-plugins/1/
 
 alias logs="tail -F /tmp/php-errors -F /chroot/tmp/php-errors"
-alias run-crons="wp site list --path=/chroot/var/www --field=url | xargs -I URL wp --path=/chroot/var/www cron event run --due-now --url=URL"
-git config --global user.email "derrick.tennant@automattic.com"
-git config --global user.name "Derrick Tennant"
+alias run-crons="wp core is-installed --network --path=/chroot/var/www && wp site list --path=/chroot/var/www --field=url | xargs -I URL wp --path=/chroot/var/www cron event run --due-now --url=URL || wp cron event run --due-now --path=/chroot/var/www"
+git config --global user.email "$GIT_CONFIG_EMAIL"
+git config --global user.name "$GIT_CONFIG_USER"
 git -C /home/vipdev/dev-scripts/go-sandbox/ pull
 
 export PS1="\
