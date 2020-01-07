@@ -2,6 +2,10 @@
 ini_set( 'xdebug.cli_color', 1 );
 error_reporting(E_ALL & ~E_NOTICE);
 
+if ( file_exists( __DIR__ . '/sandbox-wp-debugger/sandbox-wp-debugger.php' ) ) {
+	require_once( __DIR__ . '/sandbox-wp-debugger/sandbox-wp-debugger.php' );
+}
+
 if ( ! function_exists( 'vip_dump' ) ) {
 	function vip_dump( $var = null ) {
 		$old_setting = ini_get( 'html_errors' );
