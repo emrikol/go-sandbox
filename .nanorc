@@ -1,0 +1,65 @@
+## Automatically indent a newly created line to the same number of tabs and/or spaces as the previous line (or as the next line if the previous line is the beginning of a paragraph).
+set autoindent
+
+## Use bold instead of reverse video
+set boldtext
+
+## Save the last hundred search strings and replacement strings and executed commands, so they can be easily reused in later sessions.
+set historylog
+
+## Display line numbers to the left of the text area.
+set linenumbers
+
+## Enable mouse support, if available for your system. When enabled, mouse clicks can be used to place the cursor, set the mark (with a double click), and execute shortcuts. The mouse will work in the X Window System, and on the console when gpm is running. Text can still be selected through dragging by holding down the Shift key.
+set mouse
+
+## Save the cursor position of files between editing sessions. The cursor position is remembered for the 200 most-recently edited files.
+set positionlog
+
+## Use a tab size of number columns. The value of number must be greater than 0. The default value is 8.
+set tabsize 4
+
+## Default Syntax Highlighting
+include "/usr/share/nano/asm.nanorc"
+include "/usr/share/nano/autoconf.nanorc"
+include "/usr/share/nano/awk.nanorc"
+include "/usr/share/nano/c.nanorc"
+include "/usr/share/nano/changelog.nanorc"
+include "/usr/share/nano/cmake.nanorc"
+include "/usr/share/nano/css.nanorc"
+include "/usr/share/nano/debian.nanorc"
+include "/usr/share/nano/default.nanorc"
+include "/usr/share/nano/elisp.nanorc"
+include "/usr/share/nano/fortran.nanorc"
+include "/usr/share/nano/gentoo.nanorc"
+include "/usr/share/nano/go.nanorc"
+include "/usr/share/nano/groff.nanorc"
+include "/usr/share/nano/guile.nanorc"
+include "/usr/share/nano/html.nanorc"
+include "/usr/share/nano/java.nanorc"
+include "/usr/share/nano/javascript.nanorc"
+include "/usr/share/nano/json.nanorc"
+include "/usr/share/nano/lua.nanorc"
+include "/usr/share/nano/makefile.nanorc"
+include "/usr/share/nano/man.nanorc"
+include "/usr/share/nano/mgp.nanorc"
+include "/usr/share/nano/mutt.nanorc"
+include "/usr/share/nano/nanorc.nanorc"
+include "/usr/share/nano/nftables.nanorc"
+include "/usr/share/nano/objc.nanorc"
+include "/usr/share/nano/ocaml.nanorc"
+include "/usr/share/nano/patch.nanorc"
+include "/usr/share/nano/perl.nanorc"
+include "/usr/share/nano/php.nanorc"
+include "/usr/share/nano/po.nanorc"
+include "/usr/share/nano/postgresql.nanorc"
+include "/usr/share/nano/pov.nanorc"
+include "/usr/share/nano/python.nanorc"
+include "/usr/share/nano/ruby.nanorc"
+include "/usr/share/nano/rust.nanorc"
+include "/usr/share/nano/sh.nanorc"
+include "/usr/share/nano/spec.nanorc"
+include "/usr/share/nano/tcl.nanorc"
+include "/usr/share/nano/tex.nanorc"
+include "/usr/share/nano/texinfo.nanorc"
+include "/usr/share/nano/xml.nanorc"
