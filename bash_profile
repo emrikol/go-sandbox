@@ -4,6 +4,7 @@
 test -f ~/dev-scripts/.go-sandbox.conf && source ~/dev-scripts/.go-sandbox.conf
 
 yes | cp -rf ~/dev-scripts/go-sandbox/mu-plugins/* ~/software-stacks/mu-plugins/1/
+yes | cp -rf ~/dev-scripts/go-sandbox/.nanorc ~/.nanorc
 
 alias logs="tail -F /tmp/php-errors -F /chroot/tmp/php-errors"
 alias run-crons="wp core is-installed --network --path=/chroot/var/www && wp site list --path=/chroot/var/www --field=url | xargs -I URL wp --path=/chroot/var/www cron event run --due-now --url=URL || wp cron event run --due-now --path=/chroot/var/www"
