@@ -2,8 +2,15 @@
 ini_set( 'xdebug.cli_color', 1 );
 error_reporting(E_ALL & ~E_NOTICE);
 
-if ( file_exists( __DIR__ . '/sandbox-wp-debugger/sandbox-wp-debugger.php' ) ) {
-	require_once( __DIR__ . '/sandbox-wp-debugger/sandbox-wp-debugger.php' );
+foreach( array(
+	__DIR__ . '/sandbox-wp-debugger/sandbox-wp-debugger.php',
+	__DIR__ . '/wp-toolbar/wp-toolbar.php',
+) as $mu_plugin_file ) {
+	if ( file_exists( $mu_plugin_file ) ) {
+		require_once $mu_plugin_file;
+	} else {
+		error_log( 'SANDBOX-HELPER: Missing File ' . $mu_plugin_file );
+	}
 }
 
 if ( ! function_exists( 'vip_dump' ) ) {

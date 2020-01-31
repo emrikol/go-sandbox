@@ -1,0 +1,8 @@
+## WIP!
+#!/bin/bash
+#PURGE_URL="$1"
+#VIP_GO_APP_ID=$(php -r "include '/var/www/config/wp-config.php'; echo VIP_GO_APP_ID;" 2> /dev/null)
+#FILES_ACCESS_TOKEN=$(php -r "include '/var/www/config/wp-config.php'; echo FILES_ACCESS_TOKEN;" 2> /dev/null)
+#DOMAIN=$(php -r "echo parse_url( '"$PURGE_URL"' )['host'];")
+#PATH=$(php -r "echo ( parse_url( '"$PURGE_URL"' )['path'] !== '/' ? parse_url( '"$PURGE_URL"' )['path'] : '' ) . ( isset( parse_url( '"$PURGE_URL"' )['query'] ) ? parse_url( '"$PURGE_URL"' )['query'] : '');")
+#echo /usr/bin/curl -i -H "X-Client-Site-ID: $VIP_GO_APP_ID" -H "X-Access-Token: $FILES_ACCESS_TOKEN" -H "X-Client-Host: $DOMAIN" -X PURGE "https://files.vipv2.net/$PATH"
