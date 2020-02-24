@@ -4,7 +4,7 @@ main() {
 	go_sandbox_build_config && source ~/dev-scripts/.go-sandbox.conf
 
 	# Clone or download GH repo
-	git clone git@github.com:emrikol/go-sandbox.git ~/dev-scripts/go-sandbox 2> /dev/null || git -C ~/dev-scripts/go-sandbox pull
+	git clone --recursive git@github.com:emrikol/go-sandbox.git ~/dev-scripts/go-sandbox 2> /dev/null || git -C ~/dev-scripts/go-sandbox pull
 
 	# Install bash_profile shim
 	go_sandbox_install_bash_profile
