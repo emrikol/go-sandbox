@@ -10,7 +10,7 @@ yes | cp -rf ~/dev-scripts/go-sandbox/mu-plugins/* ~/software-stacks/mu-plugins/
 yes | cp -rf ~/dev-scripts/go-sandbox/.nanorc ~/.nanorc
 
 # Create "Universal" vip-cli login
-mv --force ~/.vip-cli ~/dev-scripts 2> /dev/null
+mkdir -p ~/dev-scripts/.vip-cli/
 ln -s ~/dev-scripts/.vip-cli ~/.vip-cli
 
 # Some simple aliases
