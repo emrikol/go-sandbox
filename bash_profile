@@ -4,10 +4,10 @@
 test -f ~/dev-scripts/.go-sandbox.conf && source ~/dev-scripts/.go-sandbox.conf
 
 # Move custom mu-plugins
-yes | cp -rf ~/dev-scripts/go-sandbox/mu-plugins/* ~/software-stacks/mu-plugins/1/
+yes | cp -af ~/dev-scripts/go-sandbox/mu-plugins/* ~/software-stacks/mu-plugins/1/
 
 # Install rc files
-yes | cp -rf ~/dev-scripts/go-sandbox/.nanorc ~/.nanorc
+yes | cp -af ~/dev-scripts/go-sandbox/.nanorc ~/.nanorc
 
 # Create "Universal" vip-cli login
 mkdir -p ~/dev-scripts/.vip-cli/
