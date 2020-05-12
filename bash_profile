@@ -7,7 +7,7 @@ test -f ~/dev-scripts/.go-sandbox.conf && source ~/dev-scripts/.go-sandbox.conf
 git config --global user.email "$GIT_CONFIG_EMAIL"
 git config --global user.name "$GIT_CONFIG_USER"
 git -C /home/vipdev/dev-scripts/go-sandbox/ pull
-git submodule update --recursive --remote
+git -C /home/vipdev/dev-scripts/go-sandbox/ submodule update --recursive --remote
 
 # Move custom mu-plugins
 yes | cp -af ~/dev-scripts/go-sandbox/mu-plugins/* ~/software-stacks/mu-plugins/1/
