@@ -3,6 +3,12 @@
 # Include config if exists
 test -f ~/dev-scripts/.go-sandbox.conf && source ~/dev-scripts/.go-sandbox.conf
 
+# Config git
+git config --global user.email "$GIT_CONFIG_EMAIL"
+git config --global user.name "$GIT_CONFIG_USER"
+git -C /home/vipdev/dev-scripts/go-sandbox/ pull
+git submodule update --recursive --remote
+
 # Move custom mu-plugins
 yes | cp -af ~/dev-scripts/go-sandbox/mu-plugins/* ~/software-stacks/mu-plugins/1/
 
@@ -16,11 +22,6 @@ ln -s ~/dev-scripts/.vip-cli ~/.vip-cli
 # Some simple aliases
 alias logs="tail -F /tmp/php-errors -F /chroot/tmp/php-errors"
 alias run-crons="wp core is-installed --network --path=/chroot/var/www && wp site list --path=/chroot/var/www --field=url | xargs -I URL wp --path=/chroot/var/www cron event run --due-now --url=URL || wp cron event run --due-now --path=/chroot/var/www"
-
-# Config git
-git config --global user.email "$GIT_CONFIG_EMAIL"
-git config --global user.name "$GIT_CONFIG_USER"
-git -C /home/vipdev/dev-scripts/go-sandbox/ pull
 
 # A better prompt, no $P$G here!
 export PS1="\
