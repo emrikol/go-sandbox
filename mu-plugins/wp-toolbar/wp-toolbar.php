@@ -278,30 +278,35 @@ function wpcom_adminbar_superadmin_dashboard_menu() {
 		$wp_admin_bar->add_menu( array( 'parent' => 'top-secondary', 'id' => 'vipgo-admin', 'title' => ( defined( 'VIP_GO_APP_ENVIRONMENT' ) ? '(Env: <span style="font-style: italic; color: ' . ( 'production' === VIP_GO_APP_ENVIRONMENT ? '#81e481' : 'orange' ) . '">' . VIP_GO_APP_ENVIRONMENT : 'Local' ) . '</span>)', 'href' => "https://mc.a8c.com/vip/admin/#/sites/" . VIP_GO_APP_ID . "/" ) );
 
 		$wp_admin_bar->add_menu( array(
+			'id' => 'vipgo-admin-php-logs',
 			'parent' => 'vipgo-admin',
 			'title' => 'PHP Logs',
 			'href' => "https://logstash.a8c.com/kibana6/app/kibana#/dashboard/%5Bvipv2-php-errors%5D-VIP-GO-php-errors-dashboard?_a=(query:(query_string:(analyze_wildcard:!t,query:'client_site_id:" . VIP_GO_APP_ID . "')))",
 		) );
 
 		$wp_admin_bar->add_menu( array(
+			'id' => 'vipgo-admin-fatal-errors',
 			'parent' => 'vipgo-admin',
 			'title' => 'Fatal Errors',
 			'href' => "https://logstash.a8c.com/kibana6/app/kibana#/dashboard/%5Bvipv2-php-errors%5D-VIP-GO-php-errors-dashboard?_a=(query:(query_string:(analyze_wildcard:!t,query:'client_site_id:" . VIP_GO_APP_ID . "%20AND%20(severity:%20%22Fatal%20error%22%20OR%20severity:%20%22Parse%20error%22)')))",
 		) );
 
 		$wp_admin_bar->add_menu( array(
+			'id' => 'vipgo-admin-origin-requests',
 			'parent' => 'vipgo-admin',
 			'title' => 'Origin Requests',
 			'href' => "https://logstash.a8c.com/kibana6/app/kibana#/dashboard/%5Bvipv2-nginx%5D-WEB-nginx-logs-dashboard?_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'vipv2-nginx-*',key:client_site_id,negate:!f,params:(query:'" . VIP_GO_APP_ID . "'),type:phrase,value:'Site+ID+" . VIP_GO_APP_ID . "'),query:(match:(client_site_id:(query:'" . VIP_GO_APP_ID . "',type:phrase))))),query:(language:lucene,query:'*'),timeRestore:!f,title:'%5Bvipv2-nginx%5D%20Origin%20logs%20dashboard',viewMode:view)",
 		) );
 
 		$wp_admin_bar->add_menu( array(
+			'id' => 'vipgo-admin-lb-requests',
 			'parent' => 'vipgo-admin',
 			'title' => 'LB Requests',
 			'href' => "https://logstash.a8c.com/kibana6/app/kibana#/dashboard/%5Bvipv2-nginx%5D-LB-logs-dashboard?_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'vipv2-nginx-*',key:client_site_id,negate:!f,params:(query:'" . VIP_GO_APP_ID . "'),type:phrase,value:'Site+ID+" . VIP_GO_APP_ID . "'),query:(match:(client_site_id:(query:'" . VIP_GO_APP_ID . "',type:phrase))))),query:(language:lucene,query:'*'),timeRestore:!f,title:'%5Bvipv2-nginx%5D+LB+logs+dashboard',viewMode:view)",
 		) );
 
 		$wp_admin_bar->add_menu( array(
+			'id' => 'vipgo-admin-mail-logs',
 			'parent' => 'vipgo-admin',
 			'title' => 'Mail Logs',
 			'href' => "https://logstash.a8c.com/kibana6/app/kibana#/dashboard/%5Bwpmail%5D-WordPress.com-mail-dashboard?_a=(query:(query_string:(analyze_wildcard:!t,query:'(project_id:1%20AND%20client_site_id:" . VIP_GO_APP_ID . ")')))",
@@ -309,12 +314,14 @@ function wpcom_adminbar_superadmin_dashboard_menu() {
 	}
 
 	$wp_admin_bar->add_menu( array(
+		'id' => 'vipgo-admin-jetpack-debug',
 		'parent' => 'vipgo-admin',
 		'title' => 'Jetpack Debug',
 		'href' => "https://jetpack.com/support/debug/?url=" . parse_url( $domain, PHP_URL_HOST ),
 	) );
 
 	$wp_admin_bar->add_menu( array(
+		'id' => 'vipgo-admin-jetpack-site-profiles',
 		'parent' => 'vipgo-admin',
 		'title' => 'Jetpack Site Profiles',
 		'href' => "https://mc.a8c.com/site-profiles/?q=" . parse_url( $domain, PHP_URL_HOST ),
