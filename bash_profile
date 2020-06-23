@@ -31,6 +31,7 @@ export PS1="\
 # Path
 export PATH=/home/vipdev/dev-scripts/go-sandbox/bin/:$PATH
 export LD_LIBRARY_PATH=/home/vipdev/dev-scripts/go-sandbox/bin/:$LD_LIBRARY_PATH
+export VIPGO_ID=$(php -r "include '/var/www/config/wp-config.php'; echo VIP_GO_APP_ID;" 2> /dev/null)
 
 # I have to do this so much, let's just do it on login!
 sudo reset-permissions-vip-go.sh
