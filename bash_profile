@@ -16,8 +16,20 @@ yes | cp -af ~/dev-scripts/go-sandbox/mu-plugins/* ~/software-stacks/mu-plugins/
 yes | cp -af ~/dev-scripts/go-sandbox/.nanorc ~/.nanorc
 
 # Create "Universal" vip-cli login
-mkdir -p ~/dev-scripts/.vip-cli/
-ln -s ~/dev-scripts/.vip-cli ~/.vip-cli
+vipgo | ack sha 1&>2 2>/dev/null # Check for login
+
+retVal=$?
+if [ $retVal -eq 1 ]; then
+	# Logged out, copy login info to home
+	#echo "Logged out of VIP-CLI, copying login info"
+	rm -rf ~/.vip-cli/
+	cp -r ~/dev-scripts/.vip-cli/ ~/.vip-cli/
+else
+	# Copy login info to dev-scripts if logged in
+	#echo "Logged in to VIP-CLI, storing login info"
+	rm -rf ~/dev-scripts/.vip-cli/
+	cp -r ~/.vip-cli/ ~/dev-scripts/.vip-cli/
+fi
 
 # Some simple aliases
 alias logs="tail -F /tmp/php-errors -F /chroot/tmp/php-errors"
