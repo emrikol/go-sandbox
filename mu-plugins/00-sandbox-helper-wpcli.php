@@ -1,5 +1,8 @@
 <?php
 
+if ( ! class_exists( 'WP_CLI_Command' ) ) {
+	return;
+}
 class VIP_Go_Sandbox_Helpers_Command extends WP_CLI_Command {
 	/**
 	 * Get total size of database for the site in MB
