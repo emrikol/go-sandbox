@@ -16,12 +16,30 @@ class VIP_Go_Sandbox_Helpers_Command extends WP_CLI_Command {
 	 */
 	public function db_size( $args, $assoc_args ) {
 		global $wpdb;
+		$tables = array_map(
+			function( $val ) {
+				return $val[0];
+			},
+			$wpdb->get_results( 'SHOW TABLES;', ARRAY_N )
+		);
+
 		$report = array_map(
 			function( $table ) use ( $wpdb ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 				return $wpdb->get_row( "SHOW TABLE STATUS LIKE '$table'" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			},
-			$wpdb->tables( 'blog' )
+			$tables
 		);
+
+		foreach ( $report as $table ) {
+			WP_CLI::line(
+				sprintf(
+					'%s: Data %s GB, Index %s GB',
+					WP_CLI::colorize( '%g' . $table->Name . '%n' ),
+					WP_CLI::colorize( '%g' . round( $table->Data_length / pow( 1024, 3 ), 3 ) . '%n' ),
+					WP_CLI::colorize( '%g' . round( $table->Index_length / pow( 1024, 3 ), 3 ) . '%n' )
+				)
+			);
+		}
 
 		$total_used = array_reduce(
 			$report,
@@ -45,9 +63,8 @@ class VIP_Go_Sandbox_Helpers_Command extends WP_CLI_Command {
 
 		WP_CLI::success(
 			sprintf(
-				'Total size of the database for %s (blog_id %s) is %s GB. Data: %s GB; Index: %s GB',
+				'Total size of the database for %s is %s GB. Data: %s GB; Index: %s GB',
 				home_url(),
-				get_current_blog_id(),
 				WP_CLI::colorize( '%g' . round( $db_size['data'] + $db_size['index'], 3 ) . '%n' ),
 				WP_CLI::colorize( '%g' . round( $db_size['data'], 3 ) . '%n' ),
 				WP_CLI::colorize( '%g' . round( $db_size['index'], 3 ) . '%n' )
