@@ -1,6 +1,6 @@
 <?php
 ini_set( 'xdebug.cli_color', 1 );
-error_reporting(E_ALL & ~E_NOTICE);
+error_reporting( E_ERROR | E_WARNING | E_PARSE ); // Disable notices in logs.
 
 foreach( array(
 	__DIR__ . '/sandbox-wp-debugger/sandbox-wp-debugger.php',
