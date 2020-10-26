@@ -1,0 +1,57 @@
+#!/bin/bash
+echo "This is a super quick hack.  You'll need to modify the JETPACK_API_URL to get the stats you want, and then comment out this line :D"; exit 1
+
+# Mention: https://a8c.slack.com/archives/C0299DMPG/p1579733071018100?thread_ts=1579732329.016600&cid=C0299DMPG
+#
+# ## 1: Get API Key
+# https://apikey.wordpress.com/
+#
+# API key:
+# ## 2: Get Jetpack Blog ID
+# ## 3: API options
+# https://stats.wordpress.com/csv.php
+#
+# Error: api_key is a required parameter.
+# Required parameters: api_key, blog_id or blog_uri.
+# Optional parameters: table, post_id, end, days, limit, summarize.
+# Parameters:
+# api_key     String    A secret unique to your WordPress.com user account.
+# blog_id     Integer   The number that identifies your blog. Find it in other stats URLs.
+# blog_uri    String    The full URL to the root directory of your blog. Including the full path.
+# table       String    One of views, postviews, referrers, referrers_grouped, searchterms, clicks, videoplays.
+# post_id     Integer   For use with postviews table. Also accepts a comma-separated list of integers.
+# end         String    The last day of the desired time frame. Format is 'Y-m-d' (e.g. 2007-05-01) and default is UTC date.
+# days        Integer   The length of the desired time frame. Default is 30. "-1" means unlimited.
+# period      String    For use with views table and the 'days' parameter. The desired time period grouping. 'week' or 'month'
+#                       Use 'days' as the number of results to return (e.g. '&period=week&days=12' to return 12 weeks)
+# limit       Integer   The maximum number of records to return. Default is 100. "-1" means unlimited. If days is -1, limit is capped at 500.
+# summarize   Flag      If present, summarizes all matching records.
+# format      String    The format the data is returned in, 'csv', 'xml' or 'json'. Default is 'csv'.
+# Non-working query example: ?api_key=123456789abc&blog_id=155&table=referrers&days=30&limit=-1&summarize
+# Result format is csv with one row per line and column names in first row.
+# Strings containing double quotes, commas, or "\n" are enclosed in double-quotes. Double-qoutes in strings are escaped by inserting another double-quote.
+# Example: "pet food" recipe
+# Becomes: """pet food"" recipe"
+# Developers, please cache the results for at least 180 seconds.
+#
+# ## 4: Stats query by time period (month, day)
+# https://stats.wordpress.com/csv.php?api_key={my key}&table=views&period=month&days=5&blog_id=
+
+JETPACK_API_KEY=$1
+
+if [ -z "$1" ]; then
+	echo "No API Key Supplied!"
+	echo "  Usage: export-jetpack-stats your-api-key"
+	echo "  Visit https://apikey.wordpress.com/ for your API key :)"
+	exit 1
+fi
+
+SITES_LIST=$(wp site list --path=/chroot/var/www --field=url 2> /dev/null | tr '\n' ' ')
+
+for SITE in $SITES_LIST; do
+	BLOG_ID=$(wp --path=/chroot/var/www --url=$SITE jetpack status 2> /dev/null | ack blog_id | awk '{ print $NF }')
+	JETPACK_API_URL="https://stats.wordpress.com/csv.php?api_key=$JETPACK_API_KEY&blog_id=$BLOG_ID&table=views&end=2020-10-26&days=30"
+	CSV_FILE=$(echo $SITE | awk -F// '{print $NF}' | tr -cd '[:alnum:]._-').csv
+	echo "Exporting stats for $SITE (Blog ID $BLOG_ID) to $CSV_FILE"
+	curl -s $JETPACK_API_URL > "$CSV_FILE"
+done
