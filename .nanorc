@@ -1,5 +1,5 @@
 ## Automatically indent a newly created line to the same number of tabs and/or spaces as the previous line (or as the next line if the previous line is the beginning of a paragraph).
-set autoindent
+unset autoindent
 
 ## Use bold instead of reverse video
 set boldtext
