@@ -33,7 +33,7 @@ fi
 
 # Some simple aliases
 alias logs="tail -F /tmp/php-errors -F /chroot/tmp/php-errors"
-alias run-crons="wp core is-installed --network --path=/chroot/var/www && wp site list --path=/chroot/var/www --field=url | xargs -I URL wp --path=/chroot/var/www cron event run --due-now --url=URL || wp cron event run --due-now --path=/chroot/var/www"
+alias run-crons="wp core is-installed --network --path=/chroot/var/www 2> /dev/null && wp site list --path=/chroot/var/www --field=url 2> /dev/null | xargs -I URL bash -c 'echo Running cron for URL; wp --path=/chroot/var/www cron event run --due-now --url=URL 2> /dev/null' || echo Running cron for $(wp option get siteurl --path=/chroot/var/www 2> /dev/null); wp cron event run --due-now --path=/chroot/var/www 2> /dev/null"
 
 # A better prompt, no $P$G here!
 export PS1="\
