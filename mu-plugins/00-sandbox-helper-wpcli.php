@@ -116,6 +116,55 @@ class VIP_Go_Sandbox_Helpers_Command extends WP_CLI_Command {
 	}
 
 	/**
+	 * Runs a SQL query against the site database.
+	 *
+	 * ## OPTIONS
+	 *
+	 * <query>
+	 * : SQL Query to run.
+	 *
+	 * [--format=<format>]
+	 * : Render output in a particular format.
+	 * ---
+	 * default: table
+	 * options:
+	 *   - table
+	 *   - csv
+	 *   - json
+	 *   - count
+	 *   - yaml
+	 * ---
+	 *
+	 * [--dry-run=<true>]
+	 * : Performa a dry run
+	 *
+	 * @subcommand sql
+	 */
+	public function sql( $args, $assoc_args ) {
+		global $wpdb;
+
+		$sql     = $args[0];
+		$format  = WP_CLI\Utils\get_flag_value( $assoc_args, 'format', 'table' );
+		$dry_run = WP_CLI\Utils\get_flag_value( $assoc_args, 'dry-run', 'true' );
+
+		// Just some precautions.
+		if ( preg_match( '/[update|delete|drop|insert|create|alter|rename|truncate|replace]/i', $sql ) ) {
+			WP_CLI::error( 'Please do not modify the database with this command.' );
+		}
+
+		if ( 'false' !== $dry_run ) {
+			WP_CLI::log( WP_CLI::colorize( '%gDRY-RUN%n: `EXPLAIN` of the query is below: (https://mariadb.com/kb/en/explain/)' ) );
+			$sql = 'EXPLAIN ' . $sql;
+		}
+
+		// Fetch results from database.
+		$results = $wpdb->get_results( $sql, ARRAY_A ); // phpcs:ignore WordPress.DB
+
+		// Output data.
+		WP_CLI\Utils\format_items( $format, $results, array_keys( $results[0] ) );
+	}
+
+	/**
 	 * Outputs a human readable string for data.
 	 *
 	 * @param int $bytes The size of the data in bytes.
