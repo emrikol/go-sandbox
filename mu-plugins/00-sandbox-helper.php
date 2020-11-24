@@ -29,3 +29,10 @@ if ( ! function_exists( 'vip_dump' ) ) {
 		ini_set( 'html_errors', $old_setting );
 	}
 }
+
+// Add Sandbox WP Debugger support for internal REST API requests.
+add_action( 'rest_pre_dispatch', function( $result, $server, $request ) {
+	if ( function_exists( 'swpd_log' ) ) {
+		swpd_log( 'rest_do_request', $request->get_route(), $request->get_params(), [], true );
+	}
+}, 10, 3 );
